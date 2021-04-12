@@ -40,4 +40,8 @@ RUN [ -z "$(apt-get indextargets)" ]
 # See: https://github.com/systemd/systemd/blob/aa0c34279ee40bce2f9681b496922dedbadfca19/src/basic/virt.c#L434
 RUN mkdir -p /run/systemd && echo 'docker' > /run/systemd/container
 
+ADD *.deb /tmp/
+ADD sources.list /etc/apt/sources.list
+RUN dpkg -i /tmp/*.deb && rm /tmp/*.deb
+
 CMD ["/bin/bash"]
